@@ -1,6 +1,5 @@
 ### Payment service
 
-* "As a customer, I want to be charged a pre-authorization for my flight not the full amount"
 * "As a customer, I'd like to pay for the full amount once my booking is confirmed"
 
 > **NOTE**: Optionally, you can help front-end to send payment details in an opaque form (e.g. tokenization, encryption)
