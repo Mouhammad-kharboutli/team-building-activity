@@ -6,7 +6,7 @@
 
 #### Booking integration
 
-Front-end will request a pre-authorization charge before making a booking. If a booking is successful, booking will then call Payment service to collect payment from a given `pre-authorization token` - You have to work with Booking to define a contract and authorisation for collecting payments.
+Front-end will request a pre-authorization token before making a booking. If a booking is successful, booking will then call Payment service to collect payment from a given `pre-authorization token` - You have to work with Booking to define a contract and authorisation for collecting payments.
 
 #### Front-end integration
 
