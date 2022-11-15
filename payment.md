@@ -7,12 +7,12 @@
 
 ### **Booking integration**
 
-Front-end will request a pre-authorization token before making a booking, this happens by calling payment service to get it from Stripe. 
+Catalog service will request a pre-authorization token before making a booking, this happens by calling payment service to get it from Stripe. 
 
 If a booking is successful, booking will then call Payment service to collect payment from a given `pre-authorization token` 
 
-- You have to work with Booking to define a contract and authorization for collecting payments.
-- You have to work with Front-end to define a contract and authorization for collecting payments data to collect the money.
+- You have to work with Booking service to define a contract and authorization for collecting payments.
+- You have to work with Catalog service to define a contract and authorization for payments data needed to collect the money.
 
 <br>
 
@@ -22,7 +22,7 @@ If a booking is successful, booking will then call Payment service to collect pa
 
 <br> 
 
-### **Front-end integration**
+### **Catalog integration**
 
 #### **Pre-authorizing payment**
 
@@ -50,7 +50,7 @@ Front-end sends payment form data directly to Payment service in the following p
 
 <br>
 
-If payment pre-authorization is successful, front-end expects the response in the following format:
+If payment pre-authorization is successful, catalog service expects the response in the following format:
 
 ```json
 {
