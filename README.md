@@ -28,4 +28,4 @@ Service | Language | Description
 [Catalog](./catalog.md) | FREE TO CHOOSE | Provides log & Flight search. 
 [Booking](./booking.md) | FREE TO CHOOSE | Provides make a new booking and showing the list of existing bookings. 
 [Payment](./payment.md) | FREE TO CHOOSE | Provides payment authorization ,collection  and refund in case of cancellation.  
-[Loyality](./loyality.md) | FREE TO CHOOSE | Provides Loyalty points for customers including tiers. Fetching and ingesting Loyalty points to the user profiles(this is not included in the team building activity).
+[Loyalty](./loyalty.md) | FREE TO CHOOSE | Provides Loyalty points for customers including tiers. Fetching and ingesting Loyalty points to the user profiles(this is not included in the team building activity).
