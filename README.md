@@ -7,7 +7,7 @@ Serverless Airline Booking is a complete web application that provides Flight Se
 
 
 
-![Serverless Airline Booking sample](./media/prototype-web.png)
+![Serverless Airline Booking sample](./media/views/../../Media/prototype-whole-app.png)
 
 
 
@@ -21,6 +21,6 @@ Summary of what the stack looks like now including a picture with the core tech:
 Service | Language | Description
 ------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------
 [Catalog](./catalog.md) | FREE TO CHOOSE | Provides Flight search. 
-[Booking](./src/backend/booking/README.md) | FREE TO CHOOSE | Provides new and list Bookings. 
-[Payment](./src/backend/payment/README.md) | FREE TO CHOOSE | Provides payment authorization ,collection  and refund in case of cancellation.  
-[Loyalty](./src/backend/loyalty/README.md) | FREE TO CHOOSE | Provides Loyalty points for customers including tiers. Fetching and ingesting Loyalty points to the user profiles.
+[Booking](./booking.md) | FREE TO CHOOSE | Provides new and list Bookings. 
+[Payment](./payment.md) | FREE TO CHOOSE | Provides payment authorization ,collection  and refund in case of cancellation.  
+[Loyality](./loyality.md) | FREE TO CHOOSE | Provides Loyalty points for customers including tiers. Fetching and ingesting Loyalty points to the user profiles.
