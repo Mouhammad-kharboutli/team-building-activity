@@ -16,6 +16,8 @@ If a booking is successful, booking will then call Payment service to collect pa
 
 <br>
 
+![Serverless Airline Booking sample](./Media/integration/integration_payment.png)
+
 
 <br> 
 
@@ -58,7 +60,3 @@ If payment pre-authorization is successful, catalog service expects the response
 ```
 
 
-
-### **Payment integration**
-
-![Serverless Airline Booking sample](./media/integration/integration_payment.png)
