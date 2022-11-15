@@ -1,17 +1,31 @@
-### Payment service
+## **Booking service**
+  <br>  
+Booking service provides reservation, confirmation and cancellation operations.
 
-* "As a customer, I want to be charged a pre-authorization for my flight not the full amount"
-* "As a customer, I'd like to pay for the full amount once my booking is confirmed"
+* "As a customer, I want to be able to see all my confirmed bookings. 
 
-> **NOTE**: Optionally, you can help front-end to send payment details in an opaque form (e.g. tokenization, encryption)
+* "As a customer, I'd like to be able to cancel an ongoing booking before it is confirmed.
+* "As a customer, I'd like to be able to make a new booking.
+* "As a customer, I'd like to be able to make a new booking and get it confirmed by withdrawing funds from my credit card provided.
 
-#### Booking integration
+<br>
 
-Front-end will request a pre-authorization charge before making a booking. If a booking is successful, booking will then call Payment service to collect payment from a given `pre-authorization token` - You have to work with Booking to define a contract and authorisation for collecting payments.
+### **Booking integration**
 
-#### Front-end integration
+Front-end service will provide you with `pre-authorization token` and If a booking is successful, booking will then call Payment service to collect payment with same given `pre-authorization token` as it is required to identify the customer again in Stripe.
+-  You have to work with Payment service to define a contract and authorization for collecting payments.
+-  You have to work with Front-End to define a contract, authorization and data needed to be able to make the booking.
+-   If payment is successful, front-end expects the response to tell the customer that the payment is done and booking is confirmed.
 
-##### Pre-authorizing payment
+<br>
+
+![Booking integration](./Media/booking-state-machine.png)
+
+<br>
+
+### **Front-end integration**
+
+#### **Pre-authorizing payment**
 
 Front-end sends payment form data directly to Payment service in the following payload format:
 
@@ -33,15 +47,6 @@ Front-end sends payment form data directly to Payment service in the following p
 }
 ```
 
-> NOTE: To simplify development, you don't need to provide card tokenization feature for front-end.
 > Future reference: We may change implementation and encrypt payment form in the browser, requiring payment service to decrypt on their side.
 
-If payment pre-authorization is successful, front-end expects the response in the following format:
 
-```json
-{
-    "createdCharge": {
-      "id": "opaque-payment-authorization-token-string"
-    }
-}
-```
