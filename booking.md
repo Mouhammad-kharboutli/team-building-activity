@@ -19,34 +19,10 @@ Front-end service will provide you with `pre-authorization token` and If a booki
 
 <br>
 
-![Booking integration](./Media/booking-state-machine.png)
+![Booking integration](./Media/integration/integration_booking.png)
+
+
 
 <br>
 
-### **Front-end integration**
-
-#### **Pre-authorizing payment**
-
-Front-end sends payment form data directly to Payment service in the following payload format:
-
-```json
-{
-    "name": "Demo",
-    "address_postcode": "EC1A 2FD",
-    "address_country": "UK",
-    "email": "customerEmail",
-    "amount": 100,
-    "currency": "EUR",
-    "description": "Payment by lessa@amazon.co.uk",
-    "card": {
-       "number": "1055 444 3032 4679",
-       "expireMonth": "1",
-       "expireYear": "22",
-       "cvc": "444"
-    }
-}
-```
-
-> Future reference: We may change implementation and encrypt payment form in the browser, requiring payment service to decrypt on their side.
-
-
+![Booking integration](./Media/booking-state-machine.png)

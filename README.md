@@ -1,7 +1,7 @@
 # TEAM BUILDING ACTIVITY
 
 
-## AWS Serverless Airline Booking
+## **Serverless Airline Booking**
 
 Serverless Airline Booking is a complete web application that provides Flight Search, Payment, Booking and Loyalty points.
 
@@ -10,12 +10,17 @@ Serverless Airline Booking is a complete web application that provides Flight Se
 ![Serverless Airline Booking sample](./media/views/../../Media/prototype-whole-app.png)
 
 
+<br>
 
-## Stack
+## **STACK**
 
 Summary of what the stack looks like now including a picture with the core tech:
 
 
+![core stack](./media/views/../../Media/core-stack.png)
+
+
+<br><br>
 
 
 Service | Language | Description
