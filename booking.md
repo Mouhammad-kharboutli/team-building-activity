@@ -26,3 +26,9 @@ Front-end service will provide you with `pre-authorization token` and If a booki
 <br>
 
 ![Booking integration](./Media/booking-state-machine.png)
+
+
+<br>
+
+![Flight review & selection](./Media/views/frontend_views_flight_selection.png)
+
