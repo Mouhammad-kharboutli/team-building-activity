@@ -5,7 +5,7 @@
 
 <br>
 
-### **Booking integration**
+### **System integration**
 
 Catalog service will request a pre-authorization token before making a booking, this happens by calling payment service to get it from Stripe. 
 
@@ -16,13 +16,10 @@ If a booking is successful, booking will then call Payment service to collect pa
 
 <br>
 
-![Serverless Airline Booking sample](./media/integration/integration_payment.png)
-
-
 
 <br> 
 
-### **Catalog integration**
+### **Payment integration**
 
 #### **Pre-authorizing payment**
 
@@ -60,3 +57,8 @@ If payment pre-authorization is successful, catalog service expects the response
 }
 ```
 
+
+
+### **Payment integration**
+
+![Serverless Airline Booking sample](./media/integration/integration_payment.png)
