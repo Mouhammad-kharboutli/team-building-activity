@@ -1,7 +1,7 @@
 # TEAM BUILDING ACTIVITY
 
 
-## **Serverless Airline Booking**
+## **Airline Booking System**
 
 Serverless Airline Booking is a complete web application that provides Flight Search, Payment, Booking and Loyalty points.
 
