@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Authors>Polestar</Authors>
+    <Company>Polestar</Company>
+    <Description>Polestar Backend boilerplate for .NET</Description>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AWSProjectType>Lambda</AWSProjectType>
+    <RootNamespace>Polestar.TB.Payments.Lambda</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSXRayRecorder.Handlers.AwsSdk" Version="2.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Polestar.Contracts" Version="4.0.0" />
+    <PackageReference Include="Polestar.Policy" Version="4.0.0" />
+    <PackageReference Include="Polestar.Logging" Version="4.0.0" />
+    <PackageReference Include="Polestar.Lambda" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Polestar.TB.Payments.Application\Polestar.TB.Payments.Application.csproj" />
+    <ProjectReference Include="..\Polestar.TB.Payments.Infrastructure\Polestar.TB.Payments.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Remove="node_modules\**" />
+    <None Update="appsettings.debug.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="node_modules\**" />
+  </ItemGroup>
+</Project>

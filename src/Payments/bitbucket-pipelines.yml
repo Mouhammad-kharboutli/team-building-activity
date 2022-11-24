@@ -1,0 +1,137 @@
+image:
+  name: 315673102224.dkr.ecr.eu-north-1.amazonaws.com/sls-net6:v3.6.0
+  aws:
+    access-key: $CI_BUILD_ECR_AWS_ACCESS_KEY_ID
+    secret-key: $CI_BUILD_ECR_AWS_SECRET_ACCESS_KEY_ID
+
+definitions:
+  caches:
+    nodeall: ./node_modules
+    yarn: /usr/local/share/.cache/yarn
+
+  steps:
+    - step: &void
+        name: void task
+        script:
+          - echo "triggered, moving on"
+    - step: &quality-check
+        name: Quality check
+        caches:
+          - nodeall
+          - yarn
+          - dotnetcore
+        script:
+          # Install
+          - yarn install --frozen-lockfile
+          # Prerequisite restore and build
+          - dotnet build
+          # Run quality-check (including tests and audit)
+          - yarn quality-check --ci
+        artifacts:
+          - .devhouse-quality.log
+    - step: &deploy-global
+        name: Deploy to global
+        caches:
+          - nodeall
+          - yarn
+          - dotnetcore
+        script:
+          # Define serverless current execution stage based on bitbucket environment
+          - >
+            if [[ $BITBUCKET_DEPLOYMENT_ENVIRONMENT == *"production"* ]]; then
+              STAGE="prod"
+            elif [[ $BITBUCKET_DEPLOYMENT_ENVIRONMENT == *"staging"* ]]; then
+              STAGE="staging"
+            else
+              STAGE="dev"
+            fi
+          - export STAGE=$STAGE
+          # Build, test and variable substitution
+          - dotnet restore -s https://www.myget.org/F/polestar-dev-house/auth/${MYGET_API_KEY}/api/v3/index.json -s https://api.nuget.org/v3/index.json
+          - cd src/Polestar.TB.Payments.Lambda/
+          - tmp=$(mktemp)
+          - cat appsettings.json | bbenv > "$tmp" && mv "$tmp" appsettings.json && chmod 644 appsettings.json
+          - yarn install --frozen-lockfile
+          - yarn build
+          - yarn test
+          # Deployment
+          - yarn serverless deploy --stage=$STAGE --param="market=global"  --verbose
+
+    - step: &deploy-china
+        name: Deploy to China
+        caches:
+          - nodeall
+          - yarn
+          - dotnetcore
+        script:
+          # Define serverless current execution stage based on bitbucket environment
+          - >
+            if [[ $BITBUCKET_DEPLOYMENT_ENVIRONMENT == *"production"* ]]; then
+              STAGE="prod"
+            elif [[ $BITBUCKET_DEPLOYMENT_ENVIRONMENT == *"staging"* ]]; then
+              STAGE="staging"
+            else
+              STAGE="dev"
+            fi
+          - export STAGE=$STAGE
+          # Build, test and variable substitution
+          - dotnet restore -s https://www.myget.org/F/polestar-dev-house/auth/${MYGET_API_KEY}/api/v3/index.json -s https://api.nuget.org/v3/index.json
+          - cd src/Polestar.TB.Payments.Lambda/
+          - tmp=$(mktemp)
+          - cat appsettings.json | bbenv > "$tmp" && mv "$tmp" appsettings.json && chmod 644 appsettings.json
+          - yarn install --frozen-lockfile
+          - yarn build
+          - yarn test
+          # Full deployment
+          - yarn serverless deploy --stage=$STAGE --param="market=china" --verbose | tee deploy.result
+          # Serverless deploy sometimes fails silently - make sure result is what we expect, else fail build
+          - grep -E -i -w "Skipping deployment|Stack update finished" deploy.result >/dev/null 2>&1 || (echo "Serverless deploy failed silently..." && exit 1)
+
+pipelines:
+  default:
+    - step: *quality-check
+
+  custom:
+    quality-check:
+      - step: *quality-check
+
+  branches:
+    master:
+      - step:
+          <<: *quality-check
+          artifacts: []
+      - parallel:
+          - step:
+              <<: *deploy-global
+              name: Deploy to dev (global)
+              deployment: dev-global
+      #          - step:
+      #              <<: *deploy-china
+      #              name: Deploy to dev (china)
+      #              deployment: dev-china
+      - step:
+          <<: *void
+          name: Deploy to staging?
+          trigger: manual
+      - parallel:
+          - step:
+              <<: *deploy-global
+              name: Deploy to staging (global)
+              deployment: staging-global
+      #          - step:
+      #              <<: *deploy-china
+      #              name: Deploy to staging (china)
+      #              deployment: staging-china
+      - step:
+          <<: *void
+          name: Deploy to production?
+          trigger: manual
+      - parallel:
+          - step:
+              <<: *deploy-global
+              name: Deploy to production (global)
+              deployment: production-global
+#          - step:
+#              <<: *deploy-china
+#              name: Deploy to production (china)
+#              deployment: production-china
