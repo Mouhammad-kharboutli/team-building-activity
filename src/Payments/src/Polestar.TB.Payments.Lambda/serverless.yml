@@ -1,5 +1,5 @@
 # AWS configuration detailed at: https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
-service: "polestar.tb.payments-back"
+service: "polestar-tb-payments-backend"
 frameworkVersion: "3"
 
 plugins:
@@ -11,6 +11,7 @@ provider:
   stage: ${opt:stage, 'playground'}
   region: ${self:custom.region.${self:custom.market}}
   memorySize: 3008
+  profile: default
   timeout: 10
   logRetentionInDays: 30
   versionFunctions: false
@@ -70,17 +71,11 @@ package:
   artifact: bin/release/net6.0/deploy-package.zip
 
 functions:
-  GetGitHubIssuesFunction:
-    handler: Polestar.TB.Payments.Lambda::Polestar.TB.Payments.Lambda.Functions.GQLGetGitHubIssuesFunction::HandleAsync
-    description: My function
-    iamRoleStatementsName: ${self:service}-role-GetGitHubIssuesFunction
-    # Make sure to specify very granular access rights that your functions should have, such as below:
-    # iamRoleStatements:
-    #   - Effect: 'Allow'
-    #     Action:
-    #       - dynamodb:GetItem
-    #     Resource: !Sub 'arn:${self:custom.regions.${self:custom.region}.partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/mytable'
-  UpdateGitHubIssuesFunction:
-    handler: Polestar.TB.Payments.Lambda::Polestar.TB.Payments.Lambda.Functions.GQLUpdateGitHubIssuesFunction::HandleAsync
-    description: My function
-    iamRoleStatementsName: ${self:service}-role-UpdateGitHubIssuesFunction
+  GetPreAuthorizationTokenFunction:
+    handler: Polestar.TB.Payments.Lambda::Polestar.TB.Payments.Lambda.Functions.GetPreAuthorizationTokenFunction::FunctionHandler
+    description: GetPreAuthorizationTokenFunction
+    iamRoleStatementsName: ${self:service}-role-GetPreAuthorizationTokenFunction
+  CollectPaymentFunction:
+    handler: Polestar.TB.Payments.Lambda::Polestar.TB.Payments.Lambda.Functions.CollectPaymentFunction::FunctionHandler
+    description: GetPreAuthorizationTokenFunction
+    iamRoleStatementsName: ${self:service}-role-CollectPaymentFunction

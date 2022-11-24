@@ -1,4 +1,5 @@
-﻿using Stripe;
+﻿using System;
+using Stripe;
 using System.Threading.Tasks;
 
 namespace Polestar.TB.Payments.Infrastructure.Clients;
@@ -29,5 +30,14 @@ public class StripeClient : Polestar.TB.Payments.Application.Services.IStripeCli
         var token = await service.CreateAsync(options);
 
         return token.Id;
+    }
+
+    public async Task<string> CollectPayment(string token, decimal amount)
+    {
+        var rnd = new Random(555);
+
+        var val = rnd.NextInt64(100);
+
+        return val > 10 ? "success" : "fail";
     }
 }

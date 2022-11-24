@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.5.0" />
     <PackageReference Include="AWSXRayRecorder.Handlers.AwsSdk" Version="2.8.3" />
   </ItemGroup>
 
@@ -42,5 +43,9 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\BookingModel\" />
   </ItemGroup>
 </Project>

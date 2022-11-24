@@ -1,4 +1,4 @@
-namespace Polestar.TB.Payments.Lambda.Models;
+namespace Polestar.TB.Payments.Lambda.Models.FromBoilerplate;
 
 public class GetIssuesRequest
 {

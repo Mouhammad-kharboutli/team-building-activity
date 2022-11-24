@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Polestar.TB.Payments.Domain.Interfaces;
 using Polestar.TB.Payments.Domain.Models;
-using Polestar.TB.Payments.Lambda.Models;
 using Polestar.Contracts;
 using Polestar.Lambda.Functions;
 using Polestar.Policy;
+using Polestar.TB.Payments.Lambda.Models.FromBoilerplate;
 
-namespace Polestar.TB.Payments.Lambda.Functions;
+namespace Polestar.TB.Payments.Lambda.Functions.FromBoilerplate;
 
 /// <summary>
 /// Example Of a GraphQL query "backing" handler with a Data response.
