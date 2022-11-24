@@ -1,0 +1,15 @@
+{
+  "name": "aws-lambda-sls-dotnet",
+  "description": "Package, test and deployment commands",
+  "author": "Polestar",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "dotnet lambda package --configuration release --framework net6.0 --msbuild-parameters \"/p:PublishReadyToRun=true --self-contained false\" --output-package bin/release/net6.0/deploy-package.zip",
+    "test": "dotnet test ../../Polestar.TB.Payments.sln"
+  },
+  "devDependencies": {
+    "serverless": "^3.4.0",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-stage-manager": "^1.0.5"
+  }
+}

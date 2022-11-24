@@ -1,0 +1,86 @@
+# AWS configuration detailed at: https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+service: "polestar.tb.payments-back"
+frameworkVersion: "3"
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-stage-manager
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'playground'}
+  region: ${self:custom.region.${self:custom.market}}
+  memorySize: 3008
+  timeout: 10
+  logRetentionInDays: 30
+  versionFunctions: false
+  stackName: ${self:service}
+  runtime: dotnet6
+  deploymentBucket:
+    blockPublicAccess: true
+    serverSideEncryption: AES256
+  # shared IAM statements for all lambdas
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - xray:PutTelemetryRecords
+            - xray:PutTraceSegments
+          Resource: "*"
+  # service wide function tags
+  tags:
+    application: "Polestar.TB.Payments"
+  tracing:
+    lambda: true
+    apiGateway: false
+
+custom:
+  awsLambda: "arn:aws:lambda"
+  market: ${opt:market, 'global'}
+  awsArnPrefix:
+    china: "arn:aws-cn"
+    global: "arn:aws"
+  accountNumbers:
+    china:
+      playground: "349160334243"
+      dev: "350200466659"
+      staging: "350355626720"
+      prod: "351161694646"
+    global:
+      playground: "286643423608"
+      dev: "732848455604"
+      staging: "442341849784"
+      prod: "428243677256"
+  region:
+    china: "cn-northwest-1"
+    global: "eu-north-1"
+  endpointType:
+    china: REGIONAL
+    global: EDGE
+  stages:
+    - playground
+    - dev
+    - staging
+    - prod
+  serverless-iam-roles-per-function:
+    defaultInherit: true
+
+package:
+  artifact: bin/release/net6.0/deploy-package.zip
+
+functions:
+  GetGitHubIssuesFunction:
+    handler: Polestar.TB.Payments.Lambda::Polestar.TB.Payments.Lambda.Functions.GQLGetGitHubIssuesFunction::HandleAsync
+    description: My function
+    iamRoleStatementsName: ${self:service}-role-GetGitHubIssuesFunction
+    # Make sure to specify very granular access rights that your functions should have, such as below:
+    # iamRoleStatements:
+    #   - Effect: 'Allow'
+    #     Action:
+    #       - dynamodb:GetItem
+    #     Resource: !Sub 'arn:${self:custom.regions.${self:custom.region}.partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/mytable'
+  UpdateGitHubIssuesFunction:
+    handler: Polestar.TB.Payments.Lambda::Polestar.TB.Payments.Lambda.Functions.GQLUpdateGitHubIssuesFunction::HandleAsync
+    description: My function
+    iamRoleStatementsName: ${self:service}-role-UpdateGitHubIssuesFunction

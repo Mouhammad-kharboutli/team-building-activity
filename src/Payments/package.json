@@ -1,0 +1,16 @@
+{
+  "name": "polestar-tooling",
+  "description": "Tooling commands",
+  "author": "Polestar",
+  "version": "1.0.0",
+  "scripts": {
+    "prequality-check": "dotnet test --collect:\"XPlat Code Coverage\"",
+    "quality-check": "devhouse-quality-check"
+  },
+  "devDependencies": {
+    "@polestar/quality-cli": "^3.29.7"
+  },
+  "resolutions": {
+    "y18n": ">=5.0.5||>=4.0.1 <5.0.0||>=3.2.2 <4.0.0"
+  }
+}
